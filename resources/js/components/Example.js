@@ -1,24 +1,50 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 export default class Example extends Component {
-  render() {
-    return (
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-md-8">
-                    <div className="card">
-                        <div className="card-header">React</div>
+  //JSONを格納する空配列posts[]を用意
+  constructor() {
+    super();
 
-                        <div className="card-body">I'm an example component!</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+    this.state = {
+        posts: []
+    };
+  }
+  //posts[]にJSONを格納
+  componentDidMount() {
+      axios
+          .get('/api/posts')
+          .then(response => {
+              this.setState({posts: response.data});
+          })
+          .catch(() => {
+              console.log('通信に失敗しました');
+          });
+  }
+
+  renderPosts() {
+      return this.state.posts.map(post => {
+        console.log(this.state.posts)
+          return (
+              <li key={post.key}>
+                  {post.name}: {post.content}
+              </li>
+          );
+      });
+  }
+
+  render() {
+      return (
+          <div className="container">
+              <ul>
+                  {this.renderPosts()}
+              </ul>
+          </div>
+      );
   }
 }
 
 if (document.getElementById('example')) {
-    ReactDOM.render(<Example />, document.getElementById('example'));
+  ReactDOM.render(<Example />, document.getElementById('example'));
 }
