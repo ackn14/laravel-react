@@ -14,7 +14,7 @@ export default class Example extends Component {
   //posts[]にJSONを格納
   componentDidMount() {
       axios
-          .get('/api/posts')
+          .get('/api/articles')
           .then(response => {
               this.setState({posts: response.data});
           })

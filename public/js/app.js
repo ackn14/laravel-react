@@ -65917,7 +65917,7 @@ var Example = /*#__PURE__*/function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/posts').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/articles').then(function (response) {
         _this2.setState({
           posts: response.data
         });
