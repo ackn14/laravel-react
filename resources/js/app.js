@@ -1,15 +1,32 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes React and other helpers. It's a great starting point while
- * building robust, powerful web applications using React + Laravel.
- */
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+//デバックツール導入
+import { composeWithDevTools } from 'redux-devtools-extension'
+//import './index.css'
+import reducer from './reducers'
+import EventsIndex from './components/events_index'
+import EventsNew from './components/events_new'
+import EventsShow from './components/events_show'
+//import * as serviceWorker from './serviceWorker'
 
-require('./bootstrap');
+const enhancer = process.env.NODE_ENV === 'development' ?
+  composeWithDevTools(applyMiddleware(thunk)): applyMiddleware(thunk)
+const store = createStore(reducer, enhancer)
 
-/**
- * Next, we will create a fresh React component instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-require('./components/Example');
+ReactDOM.reducer(
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/events/new" component={EventsNew} />
+        <Route path="/events/:id" component={EventsShow} />
+        <Route exact path="/" component={EventsIndex} />
+        <Route exact path="/events" component={EventsIndex} />
+      </Switch>
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
+);

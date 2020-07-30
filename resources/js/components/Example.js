@@ -14,7 +14,7 @@ export default class Example extends Component {
   //posts[]にJSONを格納
   componentDidMount() {
       axios
-          .get('/api/posts')
+          .get('/api/articles')
           .then(response => {
               this.setState({posts: response.data});
           })
@@ -25,10 +25,9 @@ export default class Example extends Component {
 
   renderPosts() {
       return this.state.posts.map(post => {
-        console.log(this.state.posts)
           return (
               <li key={post.key}>
-                  {post.name}: {post.content}
+                  {post.title}: {post.body}
               </li>
           );
       });
