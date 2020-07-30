@@ -17,7 +17,7 @@ class ArticlesController extends Controller
     {
         //
         $articles = Article::all();
-        return $articles;
+        return response()->json($articles, 200);
     }
 
     /**

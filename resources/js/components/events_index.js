@@ -14,7 +14,7 @@ class EventsIndex extends Component {
       <tr key={event.id}>
         <td>{event.id}</td>
         <td>
-          <Link to={`/events/${event.id}`}>
+          <Link to={`${event.id}`}>
             {event.title}
           </Link>
         </td>
